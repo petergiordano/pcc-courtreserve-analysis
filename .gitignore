@@ -1,0 +1,31 @@
+# CourtReserve Raw Data (Large files, potentially sensitive)
+*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/
+
+# Keep the README and analysis outputs
+!README*.md
+!*-analysis*.md
+!analysis-results.json
