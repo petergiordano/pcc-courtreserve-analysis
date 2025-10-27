@@ -1,0 +1,16 @@
+
+## Shadow Market Quantification (From CourtUtilization Analysis)
+
+**Weekday Daytime Utilization (9 AM - 4 PM):**
+- **Average utilization:** 25.3% (meaning 74.7% sits empty)
+- **Lowest utilization window:** Wednesday 14.0:00-15.0:00 at 12.9% (87.1% empty capacity)
+- **Total empty capacity:** 183.1 court-hours per week
+
+**Revenue Opportunity:**
+If we fill just 30% of this empty weekday daytime capacity:
+- **Fillable capacity:** 54.9 additional court-hours/week
+- **Annual revenue:** $85,678/year
+
+This is PURE UPSIDE—these hours currently generate $0. No cannibalization of current member prime time.
+
+**Strategic Implication:** The "shadow market" (weekday daytime) is not a weakness—it's unutilized inventory waiting for the right customer segments (retirees, WFH professionals, stay-at-home parents, shift workers).

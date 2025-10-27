@@ -1,0 +1,78 @@
+
+## Pay-Per-Use Segment Analysis (From CheckinReports)
+
+**Segment Discovery: The "Fence-Sitters"**
+
+We discovered a MASSIVE segment hidden in plain sight: **1,849 unique pay-per-use players** generating **6,470 check-ins** (42% of all facility usage!).
+
+These aren't beginners trying pickleball once. They're **regular customers** choosing to pay drop-in fees instead of joining as members.
+
+### Real Customer Example: Mark Tomlinson (#7336003)
+
+- **Monthly spend:** $1081 (paying drop-in fees)
+- **Activity:** Drop-In Open Play | Weekday Evening
+- **Skill level:** None (experienced player!)
+- **Visits:** 8 times over 4 months
+
+**The Math That Doesn't Math:**
+Mark Tomlinson pays $1081/month in drop-in fees when an Individual Membership costs $120/month.
+
+**Why aren't they converting?**
+1. **Commitment anxiety** - Not sure if they'll use it enough
+2. **Flexibility preference** - Sporadic play schedule
+3. **Price blindness** - Haven't done the math
+
+### Segment Behavioral Profile
+
+**Top Activities:**
+- Drop-In Open Play | Weekday Evening (351 check-ins)
+- Advanced Beginner | Drills and Skills (300 check-ins)
+- Open Play | Weekday Midday (284 check-ins)
+
+**Time Preferences:**
+- Unknown: 5025 check-ins
+- Evening: 769 check-ins
+- Midday: 596 check-ins
+- Morning: 80 check-ins
+
+**Price Points:**
+- Average drop-in fee: $39.45
+- Most common: $16.00 (Open Play), $20.00 (Expert Drop-In)
+
+### The Conversion Opportunity
+
+**Conservative Assumptions:**
+- 20% conversion rate (industry benchmark)
+- $99/month "Starter Membership" (lower barrier than current $120)
+- 12-month average duration
+
+**Revenue Model:**
+- 1,849 pay-per-use players
+- × 20% conversion rate
+- = 369 new members
+- × $99/month
+- × 12 months
+- = **$439,322/year**
+
+### Strategic Approach: The "You're Already Paying" Conversion Campaign
+
+**Email/SMS to pay-per-use players:**
+> "Hi Mark Tomlinson,
+>
+> We noticed you've visited 8 times, spending $1081 in drop-in fees.
+>
+> Here's some math: You're on track to spend $12975/year on drop-ins.
+>
+> Our Starter Membership is $99/month ($1,188/year) with unlimited access.
+>
+> **You'd save $11787/year** and never worry about drop-in fees again.
+>
+> Ready to lock in your rate?"
+
+**Why This Works:**
+- Anchors to their CURRENT spend (loss aversion)
+- Removes commitment anxiety (month-to-month option)
+- Creates urgency (rates could increase)
+- Leverages proven behavior (they already come regularly)
+
+**This is the #9 JTBD: "Pay-Per-Use Fence-Sitter"** - They've crossed the beginner threshold, they're not public court players, they're regulars who just haven't committed yet.
