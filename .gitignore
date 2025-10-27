@@ -25,7 +25,18 @@ Thumbs.db
 # Claude Code
 .claude/
 
-# Keep the README and analysis outputs
+# Analysis Outputs (Generated files - keep in deliverables/ only)
+*.png
+*.jpg
+*.jpeg
+*.txt
+*.json
+
+# Keep specific files
+!deliverables/**/*.png
+!deliverables/**/*.json
 !README*.md
 !*-analysis*.md
-!analysis-results.json
+
+# Keep archive READMEs
+!archive/**/README.md
