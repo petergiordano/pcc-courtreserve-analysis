@@ -3,7 +3,7 @@
 ## Overview
 Successfully enhanced the partner narrative with advanced data analysis from additional CourtReserve datasets.
 
-**Date:** October 26, 2025
+**Date:** October 27, 2025
 **Document Enhanced:** PARTNER_NARRATIVE_Customer_Intelligence_Strategy.md
 **Original Length:** ~7,500 words
 **Enhanced Length:** 9,461 words (+26% content)
@@ -306,7 +306,10 @@ Successfully enhanced the partner narrative with two major data-driven insights:
 
 ---
 
-**Generated:** October 26, 2025
+**Generated:** October 27, 2025
 **By:** Claude Code (Anthropic)
-**Analysis Period:** January-October 2025 (299 days)
-**Data Sources:** CourtUtilization-by-date.csv, CheckinReports2025-10-26_09-55-PM.csv
+**Analysis Period:** January 1 - October 26, 2025 (299 days)
+**Data Sources:**
+- CourtUtilization-by-date.csv (Jan 1 - Oct 26, 2025)
+- CheckinReports2025-10-26_09-55-PM.csv (Mar 1 - Oct 26, 2025)
+- ReservationReport_2025-10-27_04-10-AM.csv (Jan 29 - Oct 26, 2025)

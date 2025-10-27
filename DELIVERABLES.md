@@ -2,8 +2,8 @@
 
 **Project**: Pickleball Clubhouse Chicago - Customer Intelligence Center
 **Analysis Type**: Jobs-to-be-Done Customer Segmentation
-**Analysis Period**: October 1-26, 2025
-**Delivery Date**: October 26, 2025
+**Analysis Period**: January 2025 - October 26, 2025 (comprehensive, 299 days)
+**Delivery Date**: October 27, 2025
 
 ---
 
@@ -230,13 +230,13 @@ Complete package inventory and delivery summary.
 
 | Dataset | Records | Date Range | Purpose |
 |---------|---------|------------|---------|
-| Reservations | 2,227 | Oct 1-26, 2025 | Booking patterns |
-| Members Report | 4,477 | Oct 26, 2025 | Customer profiles |
-| Check-in Reports | 15,513 | Oct 1-26, 2025 | Activity analysis |
-| Court Utilization | 299 days × 20 hours | Jan-Oct 2025 | Capacity analysis |
-| Transactions | 366 | Oct 1-26, 2025 | Revenue patterns |
-| Cancellations | 220 | Oct 1-26, 2025 | Churn signals |
-| Events | 75 | Oct 1-26, 2025 | Programming mix |
+| Court Utilization | 299 days × 20 hours | Jan 1 - Oct 26, 2025 | Capacity analysis |
+| Reservations (full) | 4,609 | Jan 29 - Oct 26, 2025 (271 days) | Booking patterns |
+| Check-in Reports (full) | 15,513 | Mar 1 - Oct 26, 2025 (240 days) | Activity analysis |
+| Members Report | 4,477 | Current as of Oct 26, 2025 | Customer profiles |
+| Cancellations | 3,894 | Feb 4 - Oct 26, 2025 (265 days) | Churn signals |
+| Event Registrants | 13,165 | Feb 5 - Oct 26, 2025 (264 days) | Programming mix |
+| Transactions | 366 | Jan 26 - Oct 26, 2025 (274 days) | Revenue patterns |
 
 **Total Data Points**: 23,037 records
 
@@ -549,8 +549,8 @@ scikit-learn==1.3.0
 **Client**: Pickleball Clubhouse Chicago
 **Data Source**: CourtReserve operational data exports
 **Methodology**: Clayton Christensen's Jobs-to-be-Done Framework
-**Analysis Period**: October 1-26, 2025
-**Delivery Date**: October 26, 2025
+**Analysis Period**: January 2025 - October 26, 2025 (299 days)
+**Delivery Date**: October 27, 2025
 
 ---
 
