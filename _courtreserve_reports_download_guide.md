@@ -33,6 +33,7 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 - **View:** By Date
 
 **Expected Output:** `CourtUtilization-by-date.csv`
+- e.g. `Court_Util_2025-01-01-2025-10-26-Group-by_Date-Calc-by-Court-util.csv`
 - Format: Time slots (rows) × Date columns (5:00 AM - 12:00 AM)
 - Values: Utilization percentages (e.g., "45.2 %")
 - Example records: 299 days × 20 hourly time slots = ~6,000 data points
@@ -57,6 +58,7 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 - **Include:** Paid, Unpaid, Cancelled reservations
 
 **Expected Output:** `ReservationReport_[YYYY-MM-DD]_[HH-MM-AM/PM].csv`
+- e.g. `ReservationReport_2025-01-01-to-2025-10-27_04-43-PM.csv`
 - Records: 4,000-5,000+ reservations (depends on facility size)
 - Date Range: 271+ days recommended
 
@@ -90,11 +92,12 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 **Report Location:** CourtReserve.com → Reports → Check-ins → Check-in Reports
 
 **Settings:**
-- **Start Date:** March 1, [Current Year] (or earliest available)
+- **Start Date:** January 1, [Current Year] (or earliest available)
 - **End Date:** [Current Date]
 - **Include:** All check-in types (Member, Non-Member/Visitor, Drop-In)
 
 **Expected Output:** `CheckinReports[YYYY-MM-DD]_[HH-MM-AM/PM].csv`
+- e.g. `CheckinReports_2025-01-01-to-2025-10-27_04-47-PM.csv`
 - Records: 15,000+ check-ins (depends on facility traffic)
 - Date Range: 240+ days recommended
 
@@ -132,6 +135,7 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 - **Fields:** Include all available fields (especially Zip Code)
 
 **Expected Output:** `MembersReport_[YYYY-MM-DD]_[HH-MM-AM/PM].csv`
+- e.g. `MembersReport_2025-10-27_11-52-AM.csv`
 - Records: 4,000-5,000+ member records
 - Snapshot: Current membership roster as of download date
 
@@ -159,14 +163,15 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 
 ### 5. **Event Registrants Reports**
 
-**Report Location:** CourtReserve.com → Reports → Events → Event Registrants
+**Report Location:** CourtReserve.com → Reports → Events → Registrant Detail
 
 **Settings:**
-- **Start Date:** February 1, [Current Year]
+- **Start Date:** January 1, [Current Year]
 - **End Date:** [Current Date]
 - **Include:** All event types (Clinics, Drills, Tournaments, Leagues, Social)
 
 **Expected Output:** `EventRegistrantsReports[YYYY-MM-DD]_[HH-MM-AM/PM].csv`
+- e.g. `EventRegistrantsReports_2025-01-01-to-2025-10-27_04-56-PM.csv`
 - Records: 13,000+ registrations
 - Date Range: 264+ days
 
@@ -191,9 +196,11 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 ### 6. **Cancellation Report**
 
 **Report Location:** CourtReserve.com → Reports → Reservations → Cancellation Report
+**NOTE** When the report is downloaded, courtreserve.com names it `ReservationReport_[YYYY-MM-DD]_[HH-MM-AM/PM].xlsx` 
+The user needs to rename it to `Cancellation_Report_[YYYY-MM-DD]_[HH-MM-AM/PM].xlsx`
 
 **Settings:**
-- **Start Date:** February 1, [Current Year]
+- **Start Date:** January 1, [Current Year]
 - **End Date:** [Current Date]
 - **Include:** All cancellation reasons
 
@@ -221,7 +228,7 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 
 ### 7. **Transactions Report**
 
-**Report Location:** CourtReserve.com → Reports → Financial → Transactions
+**Report Location:** CourtReserve.com → Transactions → Transactions List
 
 **Settings:**
 - **Start Date:** January 1, [Current Year]
@@ -275,9 +282,11 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 
 ### 9. **Instructor Report**
 
-**Report Location:** CourtReserve.com → Reports → Staff → Instructor Report
+**Report Location:** CourtReserve.com → Reports → Instructor Time
 
 **Expected Output:** `InstructorReport_[YYYY-MM-DD]_[HH-MM-AM/PM].csv`
+- Downloadas e.g. `InstructorReport_2025-10-27_05-30-PM.csv` 
+- need to rename to have data range, `InstructorReport_2025-01-01-to-2025-10-27_05-30-PM.csv`
 - Records: 10-20 instructors
 
 **Purpose:**
@@ -290,9 +299,11 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 
 ### 10. **Event List**
 
-**Report Location:** CourtReserve.com → Reports → Events → Event List
+**Report Location:** CourtReserve.com → Reports → Events → Event Summary
 
-**Expected Output:** `Event_List.csv`
+**Expected Output:** `Event_Summary.csv`
+- Downloads as `Event_Summary.xlsx`
+- Rename to `Event_Summary_2025-01-01-to-2025-10-27.xlsx`
 - Records: 75+ event types offered
 
 **Purpose:**
@@ -303,12 +314,13 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 
 ---
 
-### 11. **Event Summary**
+### 11. **Event Registrant Summary**
 
-**Report Location:** CourtReserve.com → Reports → Events → Event Summary
+**Report Location:** CourtReserve.com → Reports → Events → Registrant Summary
 
-**Expected Output:** `Event_Summary.csv`
-- Records: 1,300+ event sessions
+**Expected Output:** `Event_Registrant_Summary.csv`
+- Downloads as `Event_Registrant_Summary.xlsx`
+- Rename to `Event_Registrant_Summary_2025-01-01-to-2025-10-27.xlsx`
 
 **Purpose:**
 - Event-level metrics (attendance, revenue)
@@ -317,8 +329,15 @@ This analysis requires 7 core reports from CourtReserve. Download these reports 
 **Analysis Script:** Not currently used in primary analysis
 
 ---
+### 12. **Events Registrant Detail**
+**Report Location:** CourtReserve.com → Reports → Events → Registrant Detail
+- Downloads as `EventRegistrantsReports2025-10-27_05-39-PM.xlsx`
+- Rename to `EventRegistrantReports_2025-01-01-to-2025-10-27.csv`
+**Expected Output:** `EventRegistrantReports_2025-01-01-to-2025-10-27.csv`
 
-### 12. **Court Sheet Reports**
+
+---
+### 13. **Court Sheet Reports**
 
 **Report Location:** CourtReserve.com → Reports → Court Sheet
 
@@ -341,10 +360,10 @@ Use this checklist when downloading reports:
 ### Core Reports (Required for Analysis)
 - [ ] **Court Utilization by Date** (Jan 1 - Current, ALL filters)
 - [ ] **Reservation Report** (Jan 1 - Current, all types)
-- [ ] **Check-in Reports** (Mar 1 - Current, all check-ins)
+- [ ] **Check-in Reports** (Jan 1 - Current, all check-ins)
 - [ ] **Members Report** (Current roster, include Zip Code)
-- [ ] **Event Registrants** (Feb 1 - Current)
-- [ ] **Cancellation Report** (Feb 1 - Current)
+- [ ] **Event Registrants** (Jan 1 - Current)
+- [ ] **Cancellation Report** (Jan 1 - Current)
 - [ ] **Transactions Report** (Jan 1 - Current)
 
 ### Optional Reports
@@ -352,6 +371,7 @@ Use this checklist when downloading reports:
 - [ ] Instructor Report
 - [ ] Event List
 - [ ] Event Summary
+- [ ] Events Registrant Detail
 - [ ] Court Sheet variants
 
 ---
@@ -374,18 +394,20 @@ CourtReserve auto-generates filenames with this pattern:
 
 ## After Downloading
 
-### 1. Place Files in Repository Root
+### 1. Place Files in _to_process/ Directory
 
 ```bash
 pcc-courtreserve-analysis/
-├── CourtUtilization-by-date.csv ✓
-├── ReservationReport_2025-10-27_04-10-AM.csv ✓
-├── CheckinReports2025-10-26_09-55-PM.csv ✓
-├── MembersReport_2025-10-26_04-58-PM.csv ✓
-├── EventRegistrantsReports2025-10-27_04-14-AM.csv ✓
-├── Cancellation_Report_2025-10-27_04-22-AM.csv ✓
-├── Transactions-2025.csv ✓
-└── scripts/ (analysis scripts)
+├── _to_process/                    ⭐ PUT NEW CSV FILES HERE
+│   ├── CourtUtilization-by-date.csv
+│   ├── ReservationReport_2025-10-27_04-10-AM.csv
+│   ├── CheckinReports2025-10-26_09-55-PM.csv
+│   ├── MembersReport_2025-10-26_04-58-PM.csv
+│   ├── EventRegistrantsReports2025-10-27_04-14-AM.csv
+│   ├── Cancellation_Report_2025-10-27_04-22-AM.csv
+│   └── Transactions-2025.csv
+├── z_processed_csv_files/          (old CSV files, already analyzed)
+└── scripts/                        (analysis scripts)
 ```
 
 ### 2. Run Analysis Scripts

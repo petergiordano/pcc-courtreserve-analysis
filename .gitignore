@@ -1,4 +1,7 @@
 # CourtReserve Raw Data (Large files, potentially sensitive)
+# New workflow: CSVs in _to_process/ and z_processed_csv_files/
+_to_process/*.csv
+z_processed_csv_files/*.csv
 *.csv
 
 # SQLite Database (Generated from CSVs - do not track)

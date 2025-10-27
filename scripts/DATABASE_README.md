@@ -17,8 +17,8 @@
 ### 1. Create Database (One-Time Setup)
 
 ```bash
-# Make sure you have CSV files in repository root
-ls *.csv
+# Make sure you have CSV files in _to_process/ directory
+ls _to_process/*.csv
 
 # Run the database creation script
 python3 scripts/create_database.py
@@ -364,15 +364,18 @@ Refresh the database monthly (or when you download new CSV files):
 
 ```bash
 # 1. Download latest CSV files from CourtReserve
-# 2. Replace old CSV files in repository root
+# 2. Place new CSV files in _to_process/ directory
 # 3. Recreate database
 python3 scripts/create_database.py
 
 # The script will:
 # - Delete old courtreserve.db
-# - Import all CSV files
+# - Import all CSV files from _to_process/
 # - Create indexes
 # - Show summary statistics
+
+# 4. Move processed CSVs to archive
+mv _to_process/*.csv z_processed_csv_files/
 ```
 
 **Time:** ~10-15 seconds

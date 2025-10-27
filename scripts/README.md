@@ -147,7 +147,7 @@ python3 analyze_pay_per_use_segment.py
 
 ### Input Files (CourtReserve Exports)
 
-Place these files in the repository root:
+Place these files in the `_to_process/` directory (not repository root):
 
 1. **ReservationReport_*.csv**
    - Date range: Jan 29 - Oct 26, 2025 (271 days)
@@ -167,6 +167,17 @@ Place these files in the repository root:
    - Date range: Mar 1 - Oct 26, 2025 (240 days)
    - Records: 15,513 check-ins
    - Fields: Player ID, Event Name, Price, Registration Type, etc.
+
+### CSV Workflow
+
+**New Data Download Process:**
+1. Download fresh reports from CourtReserve.com
+2. Place CSV files in `_to_process/` directory
+3. Run `python3 scripts/create_database.py` to create SQLite database
+4. Move processed CSVs to `z_processed_csv_files/` directory
+5. Run analysis scripts to generate insights
+
+**See:** `_courtreserve_reports_download_guide.md` for detailed download instructions
 
 ### Output Files
 
@@ -206,13 +217,23 @@ pip install pandas numpy matplotlib seaborn scikit-learn
 
 ### File Not Found Errors
 
-Ensure CourtReserve CSV files are in the repository root (one level up from scripts/):
+**For database creation:**
+Ensure CourtReserve CSV files are in `_to_process/` directory:
+```bash
+ls _to_process/*.csv  # Should show CSV files
+python3 scripts/create_database.py
+```
+
+**For analysis scripts:**
+Some scripts still read from repository root (legacy behavior):
 ```bash
 cd ../
-ls *.csv  # Should show CourtUtilization-by-date.csv, etc.
+ls *.csv  # If needed, CSV files should be here
 cd scripts/
 python3 analyze_shadow_market_heatmap.py
 ```
+
+**Note:** Future enhancement will migrate all scripts to use SQLite database instead of CSVs
 
 ### f-string Syntax Error (analyze_pay_per_use_segment.py)
 

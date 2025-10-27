@@ -8,6 +8,9 @@ for easier querying and analysis.
 Usage:
     python3 scripts/create_database.py
 
+CSV Source Directory:
+    _to_process/ (place fresh CSV downloads here)
+
 Output:
     courtreserve.db (SQLite database file in repository root)
 
@@ -24,6 +27,13 @@ Tables created:
     - sales_summary
 
 Database file size: ~50-100MB (depending on data volume)
+
+Workflow:
+    1. Download fresh reports from CourtReserve.com
+    2. Place CSV files in _to_process/ directory
+    3. Run: python3 scripts/create_database.py
+    4. Database created with fresh data
+    5. Move processed CSVs to z_processed_csv_files/
 """
 
 import sqlite3
@@ -32,22 +42,25 @@ import os
 import glob
 from datetime import datetime
 
+# CSV source directory
+CSV_DIR = '_to_process'
+
 # Database file location
 DB_PATH = 'courtreserve.db'
 
-# CSV file patterns (finds most recent versions)
+# CSV file patterns (finds most recent versions in _to_process/)
 CSV_PATTERNS = {
-    'reservations': 'ReservationReport_*.csv',
-    'members': 'MembersReport_*.csv',
-    'checkins': 'CheckinReports*.csv',
-    'court_utilization': 'CourtUtilization-by-date.csv',
-    'cancellations': 'Cancellation_Report_*.csv',
-    'event_registrants': 'EventRegistrantsReports*.csv',
-    'transactions': 'Transactions*.csv',
-    'events': 'Event_Summary*.csv',
-    'event_list': 'Event_List.csv',
-    'instructors': 'InstructorReport_*.csv',
-    'sales_summary': 'SalesReport*.csv',
+    'reservations': f'{CSV_DIR}/ReservationReport_*.csv',
+    'members': f'{CSV_DIR}/MembersReport_*.csv',
+    'checkins': f'{CSV_DIR}/CheckinReports*.csv',
+    'court_utilization': f'{CSV_DIR}/Court*Util*.csv',  # Matches Court_Util and CourtUtilization
+    'cancellations': f'{CSV_DIR}/Cancellation*Report*.csv',
+    'event_registrants': f'{CSV_DIR}/EventRegistrantsReports*.csv',
+    'transactions': f'{CSV_DIR}/Transactions*.csv',  # Matches all Transactions files
+    'events': f'{CSV_DIR}/Event*Summary*.csv',  # Matches Event_Summary and Event_Registrant_Summary
+    'event_list': f'{CSV_DIR}/Event_List.csv',
+    'instructors': f'{CSV_DIR}/InstructorReport_*.csv',
+    'sales_summary': f'{CSV_DIR}/Sales*Report*.csv',  # Matches both SalesReport and Sales-Summary-Report
 }
 
 
@@ -215,21 +228,37 @@ def create_database():
     else:
         print(f"\n6. ⚠️  Event Registrants CSV not found (pattern: {CSV_PATTERNS['event_registrants']})")
 
-    # Import Transactions
-    csv_file = find_latest_csv(CSV_PATTERNS['transactions'])
-    if csv_file:
-        print(f"\n7. Importing Transactions from: {csv_file}")
-        df = pd.read_csv(csv_file, encoding='utf-8-sig', low_memory=False)
-        df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('/', '_').str.replace('.', '')
+    # Import Transactions (may be multiple files)
+    csv_files = glob.glob(CSV_PATTERNS['transactions'])
+    if csv_files:
+        print(f"\n7. Importing Transactions from {len(csv_files)} file(s):")
+        dfs = []
+        for csv_file in sorted(csv_files):
+            print(f"   - {os.path.basename(csv_file)}")
+            df = pd.read_csv(csv_file, encoding='utf-8-sig', low_memory=False)
 
-        # Parse dates
-        if 'trans_date' in df.columns:
-            df['trans_date'] = pd.to_datetime(df['trans_date'], errors='coerce')
+            # Clean column names (preserve # and other special chars in quotes)
+            df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('/', '_').str.replace('.', '')
 
-        df.to_sql('transactions', conn, if_exists='replace', index=False)
-        print(f"   ✓ Imported {len(df):,} transactions")
+            # Remove summary row (last row with no Transaction ID)
+            if 'transaction_id' in df.columns:
+                df = df[df['transaction_id'].notna()]
+
+            dfs.append(df)
+
+        # Combine all transaction files
+        df_combined = pd.concat(dfs, ignore_index=True)
+
+        # Parse dates (after combining)
+        if 'trans_date' in df_combined.columns:
+            df_combined['trans_datetime'] = pd.to_datetime(df_combined['trans_date'], errors='coerce')
+        if 'paid_date' in df_combined.columns:
+            df_combined['paid_datetime'] = pd.to_datetime(df_combined['paid_date'], errors='coerce')
+
+        df_combined.to_sql('transactions', conn, if_exists='replace', index=False)
+        print(f"   ✓ Imported {len(df_combined):,} transactions total")
         tables_created += 1
-        total_records += len(df)
+        total_records += len(df_combined)
     else:
         print(f"\n7. ⚠️  Transactions CSV not found (pattern: {CSV_PATTERNS['transactions']})")
 
@@ -272,6 +301,12 @@ def create_database():
         df = pd.read_csv(csv_file, encoding='utf-8-sig', low_memory=False)
         df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('/', '_')
 
+        # Handle duplicate column names by adding suffix
+        cols = pd.Series(df.columns)
+        for dup in cols[cols.duplicated()].unique():
+            cols[cols[cols == dup].index.values.tolist()] = [dup + '_' + str(i) if i != 0 else dup for i in range(sum(cols == dup))]
+        df.columns = cols
+
         df.to_sql('instructors', conn, if_exists='replace', index=False)
         print(f"   ✓ Imported {len(df):,} instructors")
         tables_created += 1
@@ -285,6 +320,17 @@ def create_database():
         print(f"\n11. Importing Sales Summary from: {csv_file}")
         df = pd.read_csv(csv_file, encoding='utf-8-sig', low_memory=False)
         df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('/', '_')
+
+        # Remove empty first row (header separator)
+        df = df[df['item'].notna()]
+
+        # Clean up 'name' field (remove extra whitespace and newlines)
+        if 'name' in df.columns:
+            df['name'] = df['name'].str.strip().str.replace('\n', ' ').str.replace(r'\s+', ' ', regex=True)
+
+        # Convert total to numeric (handle strings like "$1,234.56")
+        if 'total' in df.columns:
+            df['total_numeric'] = pd.to_numeric(df['total'].astype(str).str.replace('$', '').str.replace(',', ''), errors='coerce')
 
         df.to_sql('sales_summary', conn, if_exists='replace', index=False)
         print(f"   ✓ Imported {len(df):,} sales records")
@@ -300,21 +346,31 @@ def create_database():
 
     cursor = conn.cursor()
 
+    # Get list of existing tables
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    existing_tables = [row[0] for row in cursor.fetchall()]
+
     indexes = [
-        "CREATE INDEX IF NOT EXISTS idx_reservations_player ON reservations(player__)",
-        "CREATE INDEX IF NOT EXISTS idx_reservations_start ON reservations(start_datetime)",
-        "CREATE INDEX IF NOT EXISTS idx_members_id ON members(member__)",
-        "CREATE INDEX IF NOT EXISTS idx_members_status ON members(membership_status)",
-        "CREATE INDEX IF NOT EXISTS idx_checkins_player ON checkins(player__)",
-        "CREATE INDEX IF NOT EXISTS idx_checkins_datetime ON checkins(checkin_datetime)",
-        "CREATE INDEX IF NOT EXISTS idx_checkins_registration ON checkins(registration_type)",
-        "CREATE INDEX IF NOT EXISTS idx_court_util_date ON court_utilization(date)",
-        "CREATE INDEX IF NOT EXISTS idx_cancellations_start ON cancellations(start_datetime)",
+        ("reservations", "CREATE INDEX IF NOT EXISTS idx_reservations_start ON reservations(start_datetime)"),
+        ("reservations", "CREATE INDEX IF NOT EXISTS idx_reservations_confirmation ON reservations(\"confirmation_#\")"),
+        ("members", "CREATE INDEX IF NOT EXISTS idx_members_id ON members(\"member_#\")"),
+        ("members", "CREATE INDEX IF NOT EXISTS idx_members_status ON members(membership_status)"),
+        ("checkins", "CREATE INDEX IF NOT EXISTS idx_checkins_player ON checkins(\"player__#\")"),
+        ("checkins", "CREATE INDEX IF NOT EXISTS idx_checkins_datetime ON checkins(checkin_datetime)"),
+        ("checkins", "CREATE INDEX IF NOT EXISTS idx_checkins_registration ON checkins(registration_type)"),
+        ("court_utilization", "CREATE INDEX IF NOT EXISTS idx_court_util_date ON court_utilization(date)"),
+        ("cancellations", "CREATE INDEX IF NOT EXISTS idx_cancellations_start ON cancellations(start_datetime)"),
+        ("transactions", "CREATE INDEX IF NOT EXISTS idx_transactions_date ON transactions(trans_datetime)"),
+        ("transactions", "CREATE INDEX IF NOT EXISTS idx_transactions_member ON transactions(\"member_#\")"),
     ]
 
-    for idx_sql in indexes:
-        cursor.execute(idx_sql)
-        print(f"   ✓ {idx_sql.split('idx_')[1].split(' ON')[0]}")
+    for table, idx_sql in indexes:
+        if table in existing_tables:
+            try:
+                cursor.execute(idx_sql)
+                print(f"   ✓ {idx_sql.split('idx_')[1].split(' ON')[0]}")
+            except Exception as e:
+                print(f"   ⚠️  Skipped index (column may not exist): {idx_sql.split('idx_')[1].split(' ON')[0]}")
 
     conn.commit()
 
