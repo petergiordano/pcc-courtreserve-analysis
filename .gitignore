@@ -1,6 +1,12 @@
 # CourtReserve Raw Data (Large files, potentially sensitive)
 *.csv
 
+# SQLite Database (Generated from CSVs - do not track)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
 # Python
 __pycache__/
 *.py[cod]
