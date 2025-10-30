@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Shadow Market Heatmap Analysis
-Analyzes CourtUtilization-by-date.csv to quantify weekday daytime empty capacity.
+Analyzes court utilization data from database to quantify weekday daytime empty capacity.
 
 Purpose: Replace qualitative "ghost town" narrative with precise utilization percentages
 Output: Heatmap visualization + quantified revenue opportunity
@@ -13,23 +13,33 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 import sys
+from pathlib import Path
 
-def load_utilization_data(file_path):
-    """Load and parse court utilization CSV."""
-    print(f"Loading utilization data from {file_path}...")
+# Add parent directory to path for imports
+sys.path.append(str(Path(__file__).parent))
+from db_loader import CourtReserveDB
 
-    # Read CSV, skip metadata row
-    df = pd.read_csv(file_path, skiprows=1)
+def load_utilization_data():
+    """Load court utilization data from database and transform to wide format."""
+    print("Loading utilization data from database...")
 
-    # First column is time slots
-    df = df.rename(columns={df.columns[0]: 'time_slot'})
+    with CourtReserveDB() as db:
+        df_long = db.get_court_utilization()
 
-    # Remove "Total" column if it exists
-    if 'Total' in df.columns:
-        df = df.drop(columns=['Total'])
+    # Remove rows with missing dates or utilization values
+    df_long = df_long.dropna(subset=['date', 'utilization_pct'])
 
-    print(f"Loaded {len(df)} time slots across {len(df.columns)-1} dates")
-    return df
+    # Convert date to string format for column names (MM/DD/YYYY)
+    df_long['date_str'] = df_long['date'].dt.strftime('%m/%d/%Y')
+
+    # Pivot from long to wide format (time_slot rows, dates as columns)
+    df_wide = df_long.pivot(index='time_slot', columns='date_str', values='utilization_pct')
+
+    # Reset index to make time_slot a column
+    df_wide = df_wide.reset_index()
+
+    print(f"Loaded {len(df_wide)} time slots across {len(df_wide.columns)-1} dates")
+    return df_wide
 
 def parse_time_slot(time_slot_str):
     """
@@ -269,14 +279,13 @@ This is PURE UPSIDE—these hours currently generate $0. No cannibalization of c
 
 def main():
     """Main execution function."""
-    # File paths
-    input_file = 'CourtUtilization-by-date.csv'
-    heatmap_output = 'shadow_market_heatmap.png'
-    insights_output = 'shadow_market_insights.txt'
+    # Output paths (now loading from database)
+    heatmap_output = 'deliverables/visualizations/shadow_market_heatmap.png'
+    insights_output = 'deliverables/data/shadow_market_insights.txt'
 
     try:
-        # Load data
-        df = load_utilization_data(input_file)
+        # Load data from database
+        df = load_utilization_data()
 
         # Analyze shadow market
         results = analyze_shadow_market(df)

@@ -1,0 +1,64 @@
+================================================================================
+COURTRESERVE ANALYSIS SUITE - COMPLETE REGENERATION
+================================================================================
+Started: 2025-10-27 12:54:20
+Database: courtreserve.db
+Scripts to run: 9
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+Running: JTBD Clustering Analysis
+Script:  analyze_courtreserve_jtbd.py
+────────────────────────────────────────────────────────────────────────────────
+✗ Failed with return code 1
+
+Error output:
+Traceback (most recent call last):
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3791, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "index.pyx", line 152, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 181, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'First Name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 1050, in <module>
+    main()
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 1023, in main
+    analyzer.generate_report('jtbd-analysis-report.md')
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 762, in generate_report
+    name = f"{member_data.iloc[0]['First Name']} {member_data.iloc[0]['Last Name']}"
+              ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/series.py", line 1040, in __getitem__
+    return self._get_value(key)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/series.py", line 1156, in _get_value
+    loc = self.index.get_loc(label)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3798, in get_loc
+    raise KeyError(key) from err
+KeyError: 'First Name'
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+CRITICAL ERROR: JTBD clustering failed. Stopping execution.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+================================================================================
+EXECUTION SUMMARY
+================================================================================
+
+Total scripts: 1
+✓ Successful:  0
+✗ Failed:      1
+Total time:    21.4 seconds
+
+✗ JTBD Clustering Analysis                 (21.4s)
+================================================================================
+
+⚠️  1 script(s) failed. Review errors above.

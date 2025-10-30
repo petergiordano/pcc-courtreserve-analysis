@@ -1,0 +1,47 @@
+======================================================================
+CourtReserve JTBD Customer Segmentation Analysis
+Pickleball Clubhouse Chicago
+======================================================================
+Loading data from database...
+  Loaded 20490 reservation records
+  Loaded 4484 member records
+  Loaded 29752 transaction records
+  Loaded 3899 cancellation records
+  Loaded 34 event summary records
+  Loaded 17250 check-in records
+
+Data loaded successfully from database!
+
+Cleaning data...
+  Data cleaning complete (database pre-parsed dates)
+
+Engineering features...
+Traceback (most recent call last):
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3791, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "index.pyx", line 152, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 181, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Total'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 1020, in <module>
+    main()
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 978, in main
+    analyzer.engineer_features()
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 162, in engineer_features
+    feature_dict = self._extract_member_features(member_id)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 262, in _extract_member_features
+    features['total_spend'] = member_transactions['Total'].sum()
+                              ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/frame.py", line 3893, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3798, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Total'

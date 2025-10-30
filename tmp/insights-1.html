@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCC Executive Insights Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Configure Tailwind with PCC Brand Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'pcc-red': '#dd1e28',
+                        'pcc-blue': '#0072bb',
+                        'pcc-dark-blue': '#324158',
+                        'pcc-dark-blue-gray': '#323F54',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Small style tweaks */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-pcc-dark-blue-gray p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-pcc-dark-blue">Customer Segment Insights & Action Plan</h1>
+            <p class="text-xl text-pcc-dark-blue-gray/70">C-Level Briefing | Analysis Period: Jan-Sep 2025</p>
+        </header>
+
+        <!-- Top-Level KPIs -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-pcc-red">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-pcc-red mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0c-1.657 0-3-.895-3-2s1.343-2 3-2 3-.895 3-2-1.343-2-3-2m0 8c1.11 0 2.08-.402 2.599-1M12 16v1" />
+                    </svg>
+                    <div>
+                        <div class="text-sm font-medium text-gray-500 uppercase">Total Phase 1 Opportunity</div>
+                        <div class="text-4xl font-extrabold text-pcc-red">$849,000 / yr</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-pcc-blue">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-pcc-blue mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <div>
+                        <div class="text-sm font-medium text-gray-500 uppercase">Priority Segments</div>
+                        <div class="text-4xl font-extrabold text-pcc-dark-blue">3 Identified</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-pcc-dark-blue">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-pcc-dark-blue mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                        <div class="text-sm font-medium text-gray-500 uppercase">Go-to-Market Plan</div>
+                        <div class="text-4xl font-extrabold text-pcc-dark-blue">4-Week Tests</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Bar Chart -->
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-bold text-pcc-dark-blue mb-4">Phase 1 Opportunity Breakdown ($849K Total)</h2>
+            <div class="space-y-3">
+                <!-- Fence-Sitters -->
+                <div class="w-full">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-base font-medium text-pcc-red">Pay-Per-Use 'Fence-Sitters' (Conversion)</span>
+                        <span class="text-base font-medium text-pcc-red">$477K</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4">
+                        <!-- Percentage: 477 / 849 = 56.2% -->
+                        <div class="bg-pcc-red h-4 rounded-full" style="width: 56.2%"></div>
+                    </div>
+                </div>
+                <!-- High-Value Regulars -->
+                <div class="w-full">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-base font-medium text-pcc-blue">High-Value Regulars (Retention)</span>
+                        <span class="text-base font-medium text-pcc-blue">$207K</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4">
+                        <!-- Percentage: 207 / 849 = 24.4% -->
+                        <div class="bg-pcc-blue h-4 rounded-full" style="width: 24.4%"></div>
+                    </div>
+                </div>
+                <!-- Skill-Focused Improvers -->
+                <div class="w-full">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-base font-medium text-pcc-blue">Skill-Focused Improvers (Upsell)</span>
+                        <span class="text-base font-medium text-pcc-blue">$165K</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4">
+                        <!-- Percentage: 165 / 849 = 19.4% -->
+                        <div class="bg-pcc-blue h-4 rounded-full" style="width: 19.4%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Priority Segments (3-Column) -->
+        <h2 class="text-3xl font-bold text-pcc-dark-blue mb-6">Phase 1: Priority Segments & Action Plan</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            
+            <!-- Segment 1: Fence-Sitters -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                <div class="p-6">
+                    <span class="inline-block bg-pcc-red/10 text-pcc-red px-3 py-1 rounded-full text-sm font-semibold mb-2">CRITICAL: CONVERSION</span>
+                    <h3 class="text-2xl font-extrabold text-pcc-dark-blue mb-2">Pay-Per-Use 'Fence-Sitters'</h3>
+                    <p class="text-5xl font-extrabold text-pcc-red mb-3">$477K/yr</p>
+                    <p class="text-lg font-medium text-gray-600 mb-4">2,008 Customers (78% of Base)</p>
+                    
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-pcc-red">The "Aha!" Insight:</h4>
+                        <p class="text-pcc-dark-blue-gray">They already spend <strong class="text-pcc-red">$134.68/mo</strong> on average—more than our <strong class="text-pcc-red">$120/mo</strong> membership. They just haven't done the math.</p>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 mt-auto">
+                    <h4 class="text-sm font-semibold uppercase text-gray-500 mb-2">Validation Test (Week 2)</h4>
+                    <p class="font-medium text-pcc-dark-blue-gray"><strong class="text-pcc-dark-blue">Action:</strong> Email 50 high-frequency users and simply show them the math.</p>
+                    <p class="font-medium text-pcc-dark-blue-gray"><strong class="text-pcc-dark-blue">Success:</strong> 20% conversion rate (10+ new members).</p>
+                </div>
+            </div>
+
+            <!-- Segment 2: High-Value Regulars -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                <div class="p-6">
+                    <span class="inline-block bg-pcc-blue/10 text-pcc-blue px-3 py-1 rounded-full text-sm font-semibold mb-2">HIGH: RETENTION</span>
+                    <h3 class="text-2xl font-extrabold text-pcc-dark-blue mb-2">High-Value Regulars</h3>
+                    <p class="text-5xl font-extrabold text-pcc-blue mb-3">$207K/yr</p>
+                    <p class="text-lg font-medium text-gray-600 mb-4">658 Customers (25% of Base)</p>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-pcc-blue">The "Aha!" Insight:</h4>
+                        <p class="text-pcc-dark-blue-gray">Their "Job-to-be-Done" is <strong class="text-pcc-blue">community and routine.</strong> This is their "third place." They value recognition and belonging over price.</p>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 mt-auto">
+                    <h4 class="text-sm font-semibold uppercase text-gray-500 mb-2">Validation Test (Week 2)</h4>
+                    <p class="font-medium text-pcc-dark-blue-gray"><strong class="text-pcc-dark-blue">Action:</strong> Personally call 20 top regulars to test demand for a VIP program.</p>
+                    <p class="font-medium text-pcc-dark-blue-gray"><strong class="text-pcc-dark-blue">Success:</strong> 75% express interest (15+ yeses).</p>
+                </div>
+            </div>
+
+            <!-- Segment 3: Skill-Focused Improvers -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                <div class="p-6">
+                    <span class="inline-block bg-pcc-blue/10 text-pcc-blue px-3 py-1 rounded-full text-sm font-semibold mb-2">MEDIUM: UPSELL</span>
+                    <h3 class="text-2xl font-extrabold text-pcc-dark-blue mb-2">Skill-Focused Improvers</h3>
+                    <p class="text-5xl font-extrabold text-pcc-blue mb-3">$165K/yr</p>
+                    <p class="text-lg font-medium text-gray-600 mb-4">306 Customers (12% of Base)</p>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-pcc-blue">The "Aha!" Insight:</h4>
+                        <p class="text-pcc-dark-blue-gray">They will pay a premium (e.g., <strong class="text-pcc-blue">$150+/mo</strong>) for measurable, 1-on-1 skill improvement. They want to get from 3.5 to 4.0.</p>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 mt-auto">
+                    <h4 class="text-sm font-semibold uppercase text-gray-500 mb-2">Validation Test (Week 2)</h4>
+                    <p class="font-medium text-pcc-dark-blue-gray"><strong class="text-pcc-dark-blue">Action:</strong> Offer 20 drill regulars a free 15-min pro assessment to upsell lesson packages.</p>
+                    <p class="font-medium text-pcc-dark-blue-gray"><strong class="text-pcc-dark-blue">Success:</strong> 30% conversion rate (6+ book lessons).</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Other Insights & Strategic Takeaways (2-Column) -->
+        <h2 class="text-3xl font-bold text-pcc-dark-blue mb-6">Other Segments & Strategic Implications</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- Other Segments -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-pcc-dark-blue mb-4">Future Opportunities & Deprioritized</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pcc-blue mr-3 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                        <div>
+                            <h4 class="text-lg font-semibold text-pcc-dark-blue">Phase 2: 'Peak-Hour Warriors'</h4>
+                            <p class="text-gray-600"><strong class="text-pcc-blue">$140K-$233K/yr</strong> opportunity, but <strong class="text-pcc-dark-blue">requires tech build</strong> for dynamic pricing. Defer until Phase 1 is validated.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pcc-red mr-3 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                        </svg>
+                        <div>
+                            <h4 class="text-lg font-semibold text-pcc-dark-blue">Deprioritized: 'Drop-In Experimenters'</h4>
+                            <p class="text-gray-600">Largest segment by count (43%) but <strong class="text-pcc-red">lowest LTV</strong> (1.6 visits/yr). High churn risk. Not a strategic focus for marketing spend.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Key Strategic Insight -->
+            <div class="bg-pcc-dark-blue rounded-lg shadow-lg p-6 text-white">
+                <h3 class="text-2xl font-bold text-white mb-4">Key Strategic Implication: "Context Switching"</h3>
+                <div class="flex items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-pcc-blue mr-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <p class="text-lg mb-4">
+                        A single customer hires us for <strong class="text-pcc-blue">multiple "jobs"</strong> based on context.
+                        <br>
+                        (e.g., <strong class="text-white">"Skill Improver"</strong> on Tuesday, <strong class="text-white">"Social Connector"</strong> on Saturday).
+                    </p>
+                </div>
+                <div class="bg-pcc-dark-blue-gray p-4 rounded-lg">
+                    <h4 class="font-extrabold text-xl text-white">The C-Level Takeaway:</h4>
+                    <p class="text-lg text-gray-200">A diverse product portfolio (memberships, lessons, events, pay-per-use) is <strong class="text-white">essential to capture the full revenue potential</strong> of each customer.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

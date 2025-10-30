@@ -1,0 +1,135 @@
+/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_corrected_segments.py:148: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.
+  ppu_customer_spending['first_visit_dt'] = pd.to_datetime(ppu_customer_spending['first_visit'], errors='coerce')
+/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_corrected_segments.py:149: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.
+  ppu_customer_spending['last_visit_dt'] = pd.to_datetime(ppu_customer_spending['last_visit'], errors='coerce')
+/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_corrected_segments.py:198: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  program_transactions['amount'] = program_transactions['total'].str.replace('$', '').str.replace(',', '').str.replace('(', '').str.replace(')', '').astype(float)
+================================================================================
+CORRECTED CUSTOMER SEGMENTATION ANALYSIS
+================================================================================
+
+Key Fix: Excluding registration_type='Full' from pay-per-use calculations
+Output Directory: deliverables/data
+
+Loading data from database...
+  Loaded 17,250 check-in records
+  Loaded 4,484 member records
+  Loaded 29,752 transaction records
+
+================================================================================
+1. CLASSIFYING CUSTOMERS BY BEHAVIOR
+================================================================================
+
+Active Members: 4,342
+
+Customer Segment Distribution:
+--------------------------------------------------------------------------------
+  True Pay-Per-Use                     2,083 ( 90.5%)
+  Program Participant + Drop-In          142 (  6.2%)
+  Program Participant                     77 (  3.3%)
+--------------------------------------------------------------------------------
+  TOTAL                                2,302
+
+================================================================================
+2. CORRECTED PAY-PER-USE REVENUE ANALYSIS
+================================================================================
+
+True Pay-Per-Use Check-ins: 9,468
+Unique Players: 1,870
+Total Revenue: $236,288.86
+Average per check-in: $24.96
+
+Monthly Spending Stats:
+  Average: $526.00/month
+  Median: $364.98/month
+  75th percentile: $608.80/month
+
+High-Value Conversion Targets (>$80/month): 1,163
+  Total Monthly Revenue: $1,110,493.11
+  Average Monthly Spend: $954.85
+
+================================================================================
+3. PROGRAM PARTICIPANTS ANALYSIS
+================================================================================
+
+Program Event Check-ins: 1,164
+Unique Program Participants: 219
+
+Program Participant Payments (from transactions):
+  Total Program Revenue: $26,422.48
+  Number of Payments: 289
+  Average Payment: $91.43
+
+================================================================================
+4. CORRECTED FREQUENCY ANALYSIS
+================================================================================
+
+Analysis Period:
+  Start: 2025-02-05
+  End: 2025-10-27
+  Duration: 264 days (8.7 months)
+
+MEMBERS Frequency Distribution:
+Empty DataFrame
+Columns: [frequency_segment, customer_count, avg_visits_per_month, avg_total_visits]
+Index: []
+
+NON-MEMBERS Frequency Distribution:
+frequency_segment  customer_count  avg_visits_per_month  avg_total_visits
+      Weekly User             125                   7.5                65
+     Monthly User             164                   2.4                20
+  Occasional User            2013                   0.3                 3
+
+================================================================================
+5. SAVING CORRECTED RESULTS
+================================================================================
+
+✓ Saved: deliverables/data/frequency_summary_members_corrected.csv
+✓ Saved: deliverables/data/frequency_summary_nonmembers_corrected.csv
+✓ Saved: deliverables/data/customer_classification.csv
+✓ Saved: deliverables/data/pay_per_use_spending_corrected.csv
+✓ Saved: deliverables/data/high_value_conversion_targets.csv
+
+================================================================================
+6. BEFORE vs AFTER COMPARISON
+================================================================================
+
+OLD ANALYSIS (Included Full Events):
+  Based on: All non-member check-ins (including Full event duplicates)
+  Issue: Counted $660 for every check-in of 6-week programs
+
+NEW ANALYSIS (Drop-In Only):
+  True Pay-Per-Use Players: 1,870
+  Total Drop-In Revenue: $236,288.86
+  Average per Visit: $24.96
+  High-Value Targets (>$80/mo): 1,163
+
+PROGRAM PARTICIPANTS:
+  Unique Participants: 219
+  Total Program Check-ins: 1,164
+  Program Revenue: $26,422.48
+
+✓ Saved: deliverables/data/corrected_segmentation_summary.json
+
+================================================================================
+CORRECTED ANALYSIS COMPLETE
+================================================================================
+
+Key Files Generated:
+  • frequency_summary_members_corrected.csv
+  • frequency_summary_nonmembers_corrected.csv
+  • customer_classification.csv
+  • pay_per_use_spending_corrected.csv
+  • high_value_conversion_targets.csv
+  • corrected_segmentation_summary.json
+
+Next Steps:
+  1. Review high_value_conversion_targets.csv for accurate conversion list
+  2. Use corrected frequency summaries for updated charts
+  3. Update presentation with corrected revenue figures
+  4. Consider program participants as separate conversion strategy
+================================================================================

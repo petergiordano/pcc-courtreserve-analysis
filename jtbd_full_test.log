@@ -1,0 +1,87 @@
+======================================================================
+CourtReserve JTBD Customer Segmentation Analysis
+Pickleball Clubhouse Chicago
+======================================================================
+Loading data from database...
+  Loaded 20490 reservation records
+  Loaded 4484 member records
+  Loaded 29752 transaction records
+  Loaded 3899 cancellation records
+  Loaded 34 event summary records
+  Loaded 17250 check-in records
+
+Data loaded successfully from database!
+
+Cleaning data...
+  Data cleaning complete (database pre-parsed dates)
+
+Engineering features...
+  Engineered 31 features for 2575 customers
+  Features: member_id, pct_morning, pct_afternoon, pct_evening, pct_weekday, pct_weekend, time_consistency, day_consistency, unique_partners, partner_variety_rate...
+
+Running clustering analysis...
+
+  Testing K-Means with different cluster counts...
+    k=3: silhouette=0.152, inertia=50243.4
+    k=4: silhouette=0.171, inertia=45673.5
+    k=5: silhouette=0.178, inertia=41623.3
+    k=6: silhouette=0.182, inertia=37932.3
+    k=7: silhouette=0.197, inertia=34648.0
+
+  Best K-Means: k=7, silhouette=0.197
+
+  Running DBSCAN...
+    DBSCAN found 63 clusters (+ 1520 noise points)
+
+  Running Hierarchical Clustering...
+
+Clustering complete: 7 segments discovered
+
+Profiling segments...
+  Segment 0: 1018 customers (39.5%)
+  Segment 1: 111 customers (4.3%)
+  Segment 2: 193 customers (7.5%)
+  Segment 3: 541 customers (21.0%)
+  Segment 4: 481 customers (18.7%)
+  Segment 5: 1 customers (0.0%)
+  Segment 6: 230 customers (8.9%)
+
+Generating JTBD hypotheses...
+  Segment 0: Casual Explorers
+  Segment 1: Casual Explorers
+  Segment 2: Casual Explorers
+  Segment 3: Casual Explorers
+  Segment 4: Casual Explorers
+  Segment 5: Casual Explorers
+  Segment 6: Casual Explorers
+
+Identifying context switchers...
+Traceback (most recent call last):
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3791, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "index.pyx", line 152, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 181, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Members'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 1049, in <module>
+    main()
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 1019, in main
+    analyzer.identify_context_switchers(min_bookings=5)
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 625, in identify_context_switchers
+    morning_pattern = self._summarize_context_pattern(morning_bookings, member_id)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_courtreserve_jtbd.py", line 671, in _summarize_context_pattern
+    all_members_field = bookings['Members'].dropna()
+                        ~~~~~~~~^^^^^^^^^^^
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/frame.py", line 3893, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3798, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Members'

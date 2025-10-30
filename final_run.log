@@ -1,0 +1,116 @@
+================================================================================
+COURTRESERVE ANALYSIS SUITE - COMPLETE REGENERATION
+================================================================================
+Started: 2025-10-27 12:56:28
+Database: courtreserve.db
+Scripts to run: 9
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+Running: JTBD Clustering Analysis
+Script:  analyze_courtreserve_jtbd.py
+────────────────────────────────────────────────────────────────────────────────
+✓ Completed successfully in 22.8 seconds
+
+────────────────────────────────────────────────────────────────────────────────
+Running: Rule-Based Segmentation
+Script:  analyze_rule_based_segments.py
+────────────────────────────────────────────────────────────────────────────────
+✓ Completed successfully in 6.4 seconds
+
+────────────────────────────────────────────────────────────────────────────────
+Running: Pay-Per-Use Segment Analysis
+Script:  analyze_pay_per_use_segment.py
+────────────────────────────────────────────────────────────────────────────────
+✓ Completed successfully in 2.4 seconds
+
+────────────────────────────────────────────────────────────────────────────────
+Running: Shadow Market Heatmap
+Script:  analyze_shadow_market_heatmap.py
+────────────────────────────────────────────────────────────────────────────────
+✓ Completed successfully in 1.9 seconds
+
+────────────────────────────────────────────────────────────────────────────────
+Running: Daypart Patterns Analysis
+Script:  analyze_daypart_patterns.py
+────────────────────────────────────────────────────────────────────────────────
+✓ Completed successfully in 2.4 seconds
+
+────────────────────────────────────────────────────────────────────────────────
+Running: Event Fill Rates Analysis
+Script:  analyze_event_fill_rates.py
+────────────────────────────────────────────────────────────────────────────────
+✓ Completed successfully in 2.4 seconds
+
+────────────────────────────────────────────────────────────────────────────────
+Running: Engagement Friction Analysis
+Script:  analyze_engagement_friction.py
+────────────────────────────────────────────────────────────────────────────────
+✓ Completed successfully in 2.7 seconds
+
+────────────────────────────────────────────────────────────────────────────────
+Running: Transaction WTP Analysis
+Script:  analyze_transaction_details.py
+────────────────────────────────────────────────────────────────────────────────
+✓ Completed successfully in 3.2 seconds
+
+────────────────────────────────────────────────────────────────────────────────
+Running: Social Network Analysis
+Script:  analyze_party_size_guests.py
+────────────────────────────────────────────────────────────────────────────────
+✓ Completed successfully in 3.7 seconds
+
+================================================================================
+EXECUTION SUMMARY
+================================================================================
+
+Total scripts: 9
+✓ Successful:  9
+✗ Failed:      0
+Total time:    47.9 seconds
+
+✓ JTBD Clustering Analysis                 (22.8s)
+✓ Rule-Based Segmentation                  (6.4s)
+✓ Pay-Per-Use Segment Analysis             (2.4s)
+✓ Shadow Market Heatmap                    (1.9s)
+✓ Daypart Patterns Analysis                (2.4s)
+✓ Event Fill Rates Analysis                (2.4s)
+✓ Engagement Friction Analysis             (2.7s)
+✓ Transaction WTP Analysis                 (3.2s)
+✓ Social Network Analysis                  (3.7s)
+
+================================================================================
+GENERATED DELIVERABLES
+================================================================================
+
+Visualizations:
+  - deliverables/visualizations/booking_time_heatmaps.png
+  - deliverables/visualizations/daypart_heatmap.png
+  - deliverables/visualizations/event_fill_rates.png
+  - deliverables/visualizations/friction_metrics.png
+  - deliverables/visualizations/party_size_social_network.png
+  - deliverables/visualizations/pay_per_use_segment.png
+  - deliverables/visualizations/rule_based_segments.png
+  - deliverables/visualizations/segment_clusters.png
+  - deliverables/visualizations/segment_distribution.png
+  - deliverables/visualizations/shadow_market_heatmap.png
+  - deliverables/visualizations/transaction_wtp.png
+
+Data Files:
+  - deliverables/data/daypart_analysis.json
+  - deliverables/data/event_performance.json
+  - deliverables/data/friction_analysis.json
+  - deliverables/data/party_size_social_network.json
+  - deliverables/data/pay_per_use_insights.txt
+  - deliverables/data/rule_based_segments.json
+  - deliverables/data/shadow_market_insights.txt
+  - deliverables/data/wtp_analysis.json
+================================================================================
+
+✓ All scripts completed successfully!
+
+Next steps:
+  1. Review visualizations in deliverables/visualizations/
+  2. Check data outputs in deliverables/data/
+  3. Generate reports with updated findings

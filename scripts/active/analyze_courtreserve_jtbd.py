@@ -21,6 +21,11 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Tuple, Any
 from collections import defaultdict, Counter
+import sys
+
+# Add scripts directory to path for db_loader import
+sys.path.append(str(Path(__file__).parent))
+from db_loader import CourtReserveDB
 
 # Machine learning and clustering
 from sklearn.preprocessing import StandardScaler
@@ -59,84 +64,118 @@ class JTBDAnalyzer:
         self.context_switchers = None
 
     def load_data(self) -> None:
-        """Load all CSV files and perform initial cleaning."""
-        print("Loading data files...")
+        """Load all data from SQLite database."""
+        print("Loading data from database...")
 
-        # Load reservations
-        self.reservations = pd.read_csv(
-            self.data_dir / 'ReservationReport_2025-10-26_03-50-PM.csv',
-            encoding='utf-8-sig'
-        )
-        print(f"  Loaded {len(self.reservations)} reservation records")
+        with CourtReserveDB() as db:
+            # Load reservations
+            self.reservations = db.get_reservations()
+            # Rename columns to match expected format
+            self.reservations.rename(columns={
+                'start_datetime': 'Start Date / Time',
+                'player__#': 'Player _#',
+                'player_name': 'Player Name',
+                'members_count': 'Members Count',
+                'is_event?': 'Is Event?',
+                'event_name': 'Event Name',
+                'reservation_type': 'Reservation Type',
+                'payment_status': 'Payment Status',
+                'guests': 'Guests'
+            }, inplace=True)
+            print(f"  Loaded {len(self.reservations)} reservation records")
 
-        # Load members
-        self.members = pd.read_csv(
-            self.data_dir / 'MembersReport_2025-10-26_04-58-PM.csv',
-            encoding='utf-8-sig'
-        )
-        print(f"  Loaded {len(self.members)} member records")
+            # Load members
+            self.members = db.get_members()
+            # Rename columns to match expected format
+            self.members.rename(columns={
+                'member_#': 'Member #',
+                'first_name': 'First Name',
+                'last_name': 'Last Name',
+                'current_membership': 'Current Membership',
+                'total_paid': 'Total Paid'
+            }, inplace=True)
+            print(f"  Loaded {len(self.members)} member records")
 
-        # Load transactions
-        self.transactions = pd.read_csv(
-            self.data_dir / 'Transactions-2025.csv',
-            encoding='utf-8-sig'
-        )
-        print(f"  Loaded {len(self.transactions)} transaction records")
+            # Load transactions
+            self.transactions = db.get_transactions()
+            # Rename columns to match expected format
+            self.transactions.rename(columns={
+                'trans_datetime': 'Trans. Date',
+                'member_#': 'Member #',
+                'total': 'Total'
+            }, inplace=True)
+            # Clean currency strings in Total column
+            self.transactions['Total'] = self.transactions['Total'].apply(self._clean_currency)
+            print(f"  Loaded {len(self.transactions)} transaction records")
 
-        # Load cancellations
-        self.cancellations = pd.read_csv(
-            self.data_dir / 'CancellationsReport_2025-10-26_09-49-PM.csv',
-            encoding='utf-8-sig'
-        )
-        print(f"  Loaded {len(self.cancellations)} cancellation records")
+            # Load cancellations
+            self.cancellations = db.get_cancellations()
+            print(f"  Loaded {len(self.cancellations)} cancellation records")
 
-        # Load events
-        self.events = pd.read_csv(
-            self.data_dir / 'Event_Summary.csv',
-            encoding='utf-8-sig'
-        )
-        print(f"  Loaded {len(self.events)} event summary records")
+            # Load events
+            self.events = db.get_event_summary()
+            print(f"  Loaded {len(self.events)} event summary records")
 
-        # Load check-ins
-        self.checkins = pd.read_csv(
-            self.data_dir / 'CheckinReports2025-10-26_09-55-PM.csv',
-            encoding='utf-8-sig'
-        )
-        print(f"  Loaded {len(self.checkins)} check-in records")
+            # Load check-ins
+            self.checkins = db.get_checkins()
+            # Rename columns to match expected format
+            self.checkins.rename(columns={
+                'checkin_datetime': 'Check-in Date/Time',
+                'player__#': 'Player _#',
+                'check_in_status': 'Check-In Status'
+            }, inplace=True)
+            print(f"  Loaded {len(self.checkins)} check-in records")
 
-        print("\nData loaded successfully!")
+        print("\nData loaded successfully from database!")
+
+    @staticmethod
+    def _clean_currency(value):
+        """
+        Clean currency strings from database.
+        Format: '$123.45' or '($123.45)' for negatives
+        """
+        if pd.isna(value):
+            return 0.0
+
+        if isinstance(value, (int, float)):
+            return float(value)
+
+        value_str = str(value).strip()
+
+        # Check for negative (parentheses in accounting notation)
+        is_negative = value_str.startswith('(') and value_str.endswith(')')
+
+        # Remove currency symbols and parentheses
+        cleaned = value_str.replace('(', '').replace(')', '').replace('$', '').replace(',', '').strip()
+
+        try:
+            amount = float(cleaned)
+            return -amount if is_negative else amount
+        except:
+            return 0.0
 
     def clean_data(self) -> None:
         """Clean and standardize data across all datasets."""
         print("\nCleaning data...")
 
-        # Clean reservations
-        self.reservations['Start Date / Time'] = pd.to_datetime(
-            self.reservations['Start Date / Time'],
-            format='%m/%d/%Y %I:%M %p',
-            errors='coerce'
-        )
-        self.reservations['Player _#'] = self.reservations['Player _#'].str.replace('#', '').str.strip()
+        # Database already parsed dates, just ensure correct types
+        # Clean reservations - remove # prefix from Player _#
+        if 'Player _#' in self.reservations.columns:
+            self.reservations['Player _#'] = self.reservations['Player _#'].astype(str).str.replace('#', '').str.strip()
 
-        # Clean members - extract member number
-        self.members['Member #'] = self.members['Member #'].astype(str)
+        # Clean members - ensure member number is string
+        if 'Member #' in self.members.columns:
+            self.members['Member #'] = self.members['Member #'].astype(str)
 
-        # Clean transactions
-        self.transactions['Trans. Date'] = pd.to_datetime(
-            self.transactions['Trans. Date'],
-            errors='coerce'
-        )
-        self.transactions['Member #'] = self.transactions['Member #'].astype(str)
+        # Clean transactions - ensure member number is string
+        if 'Member #' in self.transactions.columns:
+            self.transactions['Member #'] = self.transactions['Member #'].astype(str)
 
-        # Clean checkins
-        self.checkins['Check-in Date/Time'] = pd.to_datetime(
-            self.checkins['Check-in Date/Time'],
-            format='%m/%d/%Y %I:%M %p',
-            errors='coerce'
-        )
-        self.checkins['Player _#'] = self.checkins['Player _#'].astype(str)
+        # Clean checkins - ensure player number is string
+        if 'Player _#' in self.checkins.columns:
+            self.checkins['Player _#'] = self.checkins['Player _#'].astype(str).str.replace('#', '').str.strip()
 
-        print("  Data cleaning complete")
+        print("  Data cleaning complete (database pre-parsed dates)")
 
     def engineer_features(self) -> pd.DataFrame:
         """
@@ -197,7 +236,7 @@ class JTBDAnalyzer:
         # === SOCIAL PATTERNS (Value Preference Signals) ===
 
         # Partner variety
-        all_members_field = member_reservations['Members'].dropna()
+        all_members_field = member_reservations['members'].dropna()
         unique_partners = set()
         for members_str in all_members_field:
             # Extract member IDs from format "Name (#ID), Name2 (#ID2)"
@@ -632,7 +671,7 @@ class JTBDAnalyzer:
         """Summarize behavioral pattern for a specific context."""
 
         # Partner variety
-        all_members_field = bookings['Members'].dropna()
+        all_members_field = bookings['members'].dropna()
         unique_partners = set()
         for members_str in all_members_field:
             import re

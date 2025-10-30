@@ -1,0 +1,86 @@
+/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_frequency_distribution.py:167: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df['checkin_date_dt'] = pd.to_datetime(df['checkin_date'])
+/Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/scripts/analyze_frequency_distribution.py:167: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df['checkin_date_dt'] = pd.to_datetime(df['checkin_date'])
+================================================================================
+FREQUENCY DISTRIBUTION ANALYSIS
+================================================================================
+
+Loading check-ins data from database...
+Loaded 17,112 check-ins from 2,285 unique customers
+
+Calculating per-customer frequency metrics...
+Analysis period: 2025-02-05 to 2025-10-27
+Total days: 264, Total months: 8.7
+Processed 2,285 customers
+
+Calculating DAU/WAU/MAU stickiness metrics...
+Calculated stickiness for 265 days
+
+Creating frequency segment summary...
+Segmented into 4 frequency groups
+
+Saving CSV files...
+  ✓ /Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/deliverables/data/frequency_distribution_members.csv (2,259 members)
+  ✓ /Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/deliverables/data/frequency_distribution_nonmembers.csv (26 non-members)
+  ✓ /Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/deliverables/data/frequency_summary_members.csv
+  ✓ /Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/deliverables/data/frequency_summary_nonmembers.csv
+  ✓ /Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/deliverables/data/dau_wau_mau_members.csv
+  ✓ /Users/petergiordano/Documents/GitHub/pcc-courtreserve-analysis/deliverables/data/dau_wau_mau_nonmembers.csv
+
+================================================================================
+KEY INSIGHTS
+================================================================================
+
+MEMBERSHIP BREAKDOWN:
+  Total customers: 2,285
+  Members: 2,259 (98.9%)
+  Non-Members (Pay-Per-Use): 26 (1.1%)
+
+MEMBERS - FREQUENCY SEGMENT BREAKDOWN:
+frequency_segment  customer_count  pct_of_total  avg_visits_per_month  avg_annual_ltv
+       Daily User            1171          51.8                  38.0             0.0
+      Weekly User             404          17.9                   7.4             0.0
+     Monthly User             328          14.5                   2.9             0.0
+  Occasional User             356          15.8                   1.2             0.0
+
+MEMBERS - CHURN RISK:
+  High risk members (30+ days inactive): 1,631 (72.2%)
+  At-risk annual value: $0
+
+MEMBERS - PRODUCT STICKINESS (Last 30 Days):
+  Avg DAU/MAU ratio: 10.2%
+  Avg DAU/WAU ratio: 20.3%
+  Avg MAU: 581 unique members/month
+
+NON-MEMBERS - FREQUENCY SEGMENT BREAKDOWN:
+frequency_segment  customer_count  pct_of_total  avg_visits_per_month  avg_annual_ltv
+       Daily User              13          50.0                  36.7             0.0
+      Weekly User               7          26.9                  10.1             0.0
+     Monthly User               6          23.1                   3.2             0.0
+
+NON-MEMBERS - CONVERSION OPPORTUNITY:
+  Total non-member customers: 26
+  Total annual spend: $0
+  Avg spend per customer: $0/year
+
+NON-MEMBERS - CHURN RISK:
+  High risk non-members (30+ days inactive): 22 (84.6%)
+  Potential lost conversions: 22 customers
+
+NON-MEMBERS - PRODUCT STICKINESS (Last 30 Days):
+  Avg DAU/MAU ratio: 36.8%
+  Avg DAU/WAU ratio: 62.5%
+  Avg MAU: 3 unique non-members/month
+
+================================================================================
+ANALYSIS COMPLETE
+================================================================================

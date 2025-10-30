@@ -48,6 +48,11 @@ archive/working-docs/*.md
 archive/analysis-outputs/*.txt
 !archive/analysis-outputs/README.md
 
+# Deprecated and old files (post-reorganization)
+scripts/_deprecated/
+deliverables/data/_old/
+docs/validation_report_*.json
+
 # Keep only essential READMEs
 !archive/**/README.md
 !scripts/README.md

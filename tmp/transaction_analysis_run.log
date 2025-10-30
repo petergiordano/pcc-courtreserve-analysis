@@ -1,0 +1,120 @@
+Loading transaction data from database...
+  Loaded 29,752 transaction records
+  Loaded 4484 member records
+
+Analyzing spending patterns...
+
+Transaction Overview:
+  Total transactions: 29,752
+  Total revenue: $-82,855.65
+  Average transaction: $-2.78
+  Median transaction: $-1.96
+
+Lifetime Value (LTV) Distribution:
+  10th percentile: $-67.97
+  25th percentile: $-10.00
+  50th percentile: $0.00
+  75th percentile: $0.00
+  90th percentile: $2.21
+  95th percentile: $28.45
+  99th percentile: $158.12
+
+Revenue Concentration:
+  Top 20% of customers generate: -30.5% of revenue
+  Top 20% customers: 603
+  Revenue from top 20%: $25,310.17
+
+High-Value Customers (Top 10%):
+  Threshold: $2.21
+  Count: 311
+  Average LTV: $81.37
+
+Transaction Size Distribution:
+amount_bin
+$0-20        8663
+$20-50       3536
+$50-100      1037
+$100-200      553
+$200-500      153
+$500-1000     192
+$1000+         45
+
+Creating WTP visualization...
+Visualization saved to deliverables/visualizations/transaction_wtp.png
+
+Generating narrative insights...
+
+## Transaction-Based Willingness-to-Pay (WTP) Analysis
+
+**Data Quality Upgrade:**
+- **Old analysis:** 366 transactions (8.2% of members)
+- **New analysis:** 29,752 transactions (COMPLETE financial picture!)
+- **Impact:** Can now calculate ACTUAL spending patterns, not proxies
+
+**Revenue Overview:**
+- **Total revenue analyzed:** $-82,855.65
+- **Average transaction:** $-2.78
+- **Median transaction:** $-1.96
+
+**Customer Value Metrics:**
+- **Total customers:** 3,018
+- **Average lifetime value (LTV):** $-24.91
+- **Median LTV:** $0.00
+- **Top 10% threshold:** $2.21
+
+**Revenue Concentration (Pareto Principle):**
+- **Top 20% of customers generate:** -30.5% of revenue
+- **High-value customers (top 10%):** 311
+- **Average high-value LTV:** $81.37
+
+**LTV Percentiles:**
+- **10th percentile:** $-67.97
+- **25th percentile:** $-10.00
+- **50th percentile:** $0.00
+- **75th percentile:** $0.00
+- **90th percentile:** $2.21
+- **95th percentile:** $28.45
+- **99th percentile:** $158.12
+
+**Strategic Implications:**
+
+1. **High-Value Customer Protection:**
+   - Top 10% customers worth $81.37 each
+   - Prioritize retention over acquisition for this segment
+   - Dedicated account management, VIP perks
+
+2. **Pricing Power Validation:**
+   - Average transaction $-2.78 shows willingness to pay
+   - Median $-1.96 < average (right-skewed = premium segment exists)
+   - Room for premium-tier offerings at $200-500+ price points
+
+3. **Revenue Diversification:**
+   - Don't over-rely on top 20% (creates churn risk)
+   - Increase spending from median customers (50th percentile)
+   - Target: Move 50th percentile customers to 75th percentile
+
+4. **Membership Optimization:**
+   - Customers below median LTV may be underpaying
+   - Consider usage-based pricing tiers
+   - "Pay for what you use" vs. unlimited models
+
+5. **Customer Segmentation by Value:**
+   - **Whales** (top 10%): Concierge service, unlimited access
+   - **Dolphins** (50-90th percentile): Standard memberships, upsell opportunities
+   - **Minnows** (bottom 50%): Pay-per-use, trial offers, conversion focus
+
+**WTP-Based Pricing Strategy:**
+- **Premium tier:** $200-300/month (top 10% customers)
+- **Standard tier:** $100-150/month (50-90th percentile)
+- **Starter tier:** $50-80/month (conversion from pay-per-use)
+
+**Retention ROI:**
+- Retaining one top-10% customer = acquiring N/A median customers
+- Focus retention efforts on customers above $0 LTV
+
+
+Data results saved to deliverables/data/wtp_analysis.json
+
+✅ Transaction WTP analysis complete!
+   - Visualization: deliverables/visualizations/transaction_wtp.png
+   - Data: deliverables/data/wtp_analysis.json

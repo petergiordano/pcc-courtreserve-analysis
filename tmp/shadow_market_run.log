@@ -1,0 +1,51 @@
+Loading utilization data from database...
+Loaded 20 time slots across 300 dates
+
+Analyzing shadow market (weekday 9 AM - 4 PM)...
+
+Shadow Market Analysis Results:
+  Average utilization: 25.3%
+  Median utilization: 22.2%
+  Empty capacity: 183.0 court-hours/week (74.7% empty)
+  Fillable capacity (30%): 54.9 court-hours/week
+  Revenue opportunity: $1,647/week ($85,652/year)
+
+10 Lowest Utilization Windows (Day, Hour, Avg Utilization):
+  Wednesday, 14.0:00-15.0:00: 12.9%
+  Tuesday, 15.0:00-16.0:00: 13.5%
+  Wednesday, 15.0:00-16.0:00: 13.7%
+  Monday, 13.0:00-14.0:00: 14.0%
+  Thursday, 15.0:00-16.0:00: 14.0%
+  Monday, 14.0:00-15.0:00: 15.0%
+  Friday, 14.0:00-15.0:00: 15.5%
+  Tuesday, 13.0:00-14.0:00: 16.1%
+  Thursday, 14.0:00-15.0:00: 17.1%
+  Wednesday, 13.0:00-14.0:00: 18.3%
+
+Creating heatmap visualization...
+Heatmap saved to deliverables/visualizations/shadow_market_heatmap.png
+
+Generating narrative insights...
+
+## Shadow Market Quantification (From CourtUtilization Analysis)
+
+**Weekday Daytime Utilization (9 AM - 4 PM):**
+- **Average utilization:** 25.3% (meaning 74.7% sits empty)
+- **Lowest utilization window:** Wednesday 14.0:00-15.0:00 at 12.9% (87.1% empty capacity)
+- **Total empty capacity:** 183.0 court-hours per week
+
+**Revenue Opportunity:**
+If we fill just 30% of this empty weekday daytime capacity:
+- **Fillable capacity:** 54.9 additional court-hours/week
+- **Annual revenue:** $85,652/year
+
+This is PURE UPSIDE—these hours currently generate $0. No cannibalization of current member prime time.
+
+**Strategic Implication:** The "shadow market" (weekday daytime) is not a weakness—it's unutilized inventory waiting for the right customer segments (retirees, WFH professionals, stay-at-home parents, shift workers).
+
+
+Narrative insights saved to deliverables/data/shadow_market_insights.txt
+
+✅ Shadow market analysis complete!
+   - Heatmap: deliverables/visualizations/shadow_market_heatmap.png
+   - Insights: deliverables/data/shadow_market_insights.txt
