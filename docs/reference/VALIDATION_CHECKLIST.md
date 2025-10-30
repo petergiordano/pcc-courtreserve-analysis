@@ -286,7 +286,7 @@ Database created successfully: 50.2 MB
 **Execute Automated Validation:**
 
 ```bash
-python3 scripts/validate_data_import.py
+python3 scripts/active/validate_data_import.py
 ```
 
 **Expected Output:**
@@ -613,5 +613,5 @@ Verify top spenders match CourtReserve customer profiles.
 
 **See Also:**
 - `DATA_DICTIONARY.md` - Complete schema documentation
-- `scripts/validate_data_import.py` - Automated validation script
+- `scripts/active/validate_data_import.py` - Automated validation script
 - `_courtreserve_reports_download_guide.md` - Detailed download instructions

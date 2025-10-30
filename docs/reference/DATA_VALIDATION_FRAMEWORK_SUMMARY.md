@@ -86,7 +86,7 @@ Created a comprehensive data validation framework to ensure data quality and pre
 
 **Usage:**
 ```bash
-python3 scripts/validate_data_import.py
+python3 scripts/active/validate_data_import.py
 ```
 
 **Output:**
@@ -94,7 +94,7 @@ python3 scripts/validate_data_import.py
 - File: `docs/validation_report_[timestamp].json`
 - Exit code: 0 (success) or 1 (failures detected)
 
-**Location:** `scripts/validate_data_import.py`
+**Location:** `scripts/active/validate_data_import.py`
 
 ---
 
@@ -134,7 +134,7 @@ python3 scripts/db_loader.py
 
 ### Step 3: Run Validation
 ```bash
-python3 scripts/validate_data_import.py
+python3 scripts/active/validate_data_import.py
 ```
 
 ### Step 4: Review Results
@@ -174,7 +174,7 @@ Once validation passes, proceed with analysis scripts
 - `docs/DATA_VALIDATION_FRAMEWORK_SUMMARY.md` - This document
 
 ### Scripts
-- `scripts/validate_data_import.py` - Automated validation (600+ lines)
+- `scripts/active/validate_data_import.py` - Automated validation (600+ lines)
 
 ### Reports
 - `docs/validation_report_20251030_075712.json` - Latest validation results
@@ -255,7 +255,7 @@ expected_tables = {
 - Schema: See `DATA_DICTIONARY.md`
 - Monthly workflow: See `VALIDATION_CHECKLIST.md`
 - Validation failures: See "Troubleshooting" section in VALIDATION_CHECKLIST.md
-- Script errors: Check `scripts/validate_data_import.py` comments
+- Script errors: Check `scripts/active/validate_data_import.py` comments
 
 ---
 

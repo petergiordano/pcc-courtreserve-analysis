@@ -33,7 +33,7 @@ Completed full data pipeline reset after discovering check-ins table missing 99%
 
 #### A. Shadow Market Analysis
 ```bash
-python3 scripts/analyze_shadow_market_heatmap.py
+python3 scripts/active/analyze_shadow_market_heatmap.py
 ```
 **Outputs:**
 - `deliverables/visualizations/shadow_market_heatmap.png`
@@ -48,7 +48,7 @@ python3 scripts/analyze_shadow_market_heatmap.py
 
 #### B. Frequency Distribution Analysis
 ```bash
-python3 scripts/analyze_frequency_distribution.py
+python3 scripts/active/analyze_frequency_distribution.py
 ```
 **Outputs:**
 - 6 CSV files (members/non-members, frequency summaries, DAU/WAU/MAU)
@@ -63,7 +63,7 @@ python3 scripts/analyze_frequency_distribution.py
 
 #### C. Corrected Segmentation Analysis
 ```bash
-python3 scripts/analyze_corrected_segments.py
+python3 scripts/active/analyze_corrected_segments.py
 ```
 **Outputs:**
 - 6 CSV files (customer classification, PPU spending, high-value targets)
@@ -79,7 +79,7 @@ python3 scripts/analyze_corrected_segments.py
 
 #### D. Transaction Details Analysis
 ```bash
-python3 scripts/analyze_transaction_details.py
+python3 scripts/active/analyze_transaction_details.py
 ```
 **Outputs:**
 - `deliverables/visualizations/transaction_wtp.png`
@@ -343,7 +343,7 @@ python3 scripts/analyze_transaction_details.py
 4. Sign off on data for presentation
 
 ### For Future Data Imports
-1. Run `python3 scripts/validate_data_import.py` monthly
+1. Run `python3 scripts/active/validate_data_import.py` monthly
 2. Use only SAFE scripts from inventory
 3. Always use transactions table for revenue
 4. Follow VALIDATION_CHECKLIST.md workflow
