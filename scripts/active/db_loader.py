@@ -16,7 +16,7 @@ from typing import Optional, List, Dict
 from datetime import datetime
 
 # Default database path (relative to repository root)
-DEFAULT_DB_PATH = 'courtreserve.db'
+DEFAULT_DB_PATH = 'data/courtreserve.db'
 
 
 class CourtReserveDB:

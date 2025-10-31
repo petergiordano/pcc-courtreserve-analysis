@@ -26,7 +26,7 @@ sys.path.append(str(Path(__file__).parent))
 from db_loader import CourtReserveDB
 
 # Output directory
-OUTPUT_DIR = Path(__file__).parent.parent / 'deliverables' / 'data'
+OUTPUT_DIR = Path(__file__).parent.parent.parent / 'deliverables' / 'data' / 'verified'
 
 # Ensure output directory exists
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -57,8 +57,8 @@ def load_checkins_data():
     with CourtReserveDB() as db:
         members = db.get_members()
 
-    # Extract member_# and membership_status, handling potential string values in member_#
-    members_status = members[['member_#', 'membership_status']].copy()
+    # Extract member_#, membership_status, and current_membership
+    members_status = members[['member_#', 'membership_status', 'current_membership']].copy()
 
     # Clean member_# column - convert to int, handling errors
     members_status['member_#'] = pd.to_numeric(members_status['member_#'], errors='coerce')
@@ -71,10 +71,18 @@ def load_checkins_data():
 
     # Fill missing membership status with 'No Membership'
     df['membership_status'] = df['membership_status'].fillna('No Membership')
+    df['current_membership'] = df['current_membership'].fillna('')
 
     # Add is_member flag for filtering
-    df['is_member'] = df['membership_status'].apply(
-        lambda x: 'Member' if x == 'Currently Active' else 'Pay-Per-Use'
+    # FIXED: Correctly identify PAID members vs free "Non-Member/Visitor" accounts
+    df['is_member'] = df.apply(
+        lambda row: 'Member' if (
+            row['membership_status'] == 'Currently Active' and
+            row['current_membership'] and
+            'Non-Member' not in str(row['current_membership']) and
+            'Visitor' not in str(row['current_membership'])
+        ) else 'Pay-Per-Use',
+        axis=1
     )
 
     return df
@@ -105,8 +113,8 @@ def calculate_frequency_metrics(df):
         # Get membership status from the group (should be consistent across all visits)
         membership_status = group['membership_status'].mode()[0] if len(group['membership_status'].mode()) > 0 else 'Unknown'
 
-        # Classify as member or pay-per-use based on membership_status
-        is_member = 'Member' if membership_status == 'Currently Active' else 'Pay-Per-Use'
+        # Get is_member from group (already calculated correctly in load_checkins_data)
+        is_member = group['is_member'].mode()[0] if len(group['is_member'].mode()) > 0 else 'Pay-Per-Use'
 
         customer_metrics.append({
             'customer_id': customer_id,
